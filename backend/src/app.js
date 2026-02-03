@@ -2,10 +2,11 @@ const express = require("express")
 const app = express();
 const cors = require("cors")
 const noteModel = require("./models/notes.model")
+const path  = require("path")
 
 app.use(express.json())
 app.use(cors())
-
+app.use(express.static("./public"))
 // store notes into mongo database
 app.post("/api/sendNotes",(req,res)=>{
     const {title,description} = req.body;
@@ -47,6 +48,11 @@ app.delete("/api/deleteNote/:id",async(req,res)=>{
     res.status(200).json({
         "message":"note deleted successfully"
     })
+})
+
+//to handle any wild card route
+app.use("*name",(req,res)=>{
+    res.sendFile(path.join(__dirname,"..","/public/index.html"))
 })
 
 
