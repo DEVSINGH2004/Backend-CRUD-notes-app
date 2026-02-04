@@ -9,7 +9,7 @@ const App = () => {
   const [selectedNote, setselectedNote] = useState(null)
 
   function fetchNotes(){
-     axios.get(`http://localhost:3000/api/getNotes`)
+     axios.get(`https://backend-crud-notes-app.onrender.com/api/getNotes`)
   .then((rawdata)=>{
     console.log(rawdata.data.notes);
     setnotes(rawdata.data.notes);
@@ -23,7 +23,7 @@ const App = () => {
     e.preventDefault();
     const{title,description} = e.target.elements;
     console.log(title.value,description.value);
-    axios.post("http://localhost:3000/api/sendNotes",{
+    axios.post("https://backend-crud-notes-app.onrender.com/api/sendNotes",{
       title:title.value,
       description:description.value
     })
@@ -38,7 +38,7 @@ const App = () => {
 
   function deleteHandler(noteId){
     console.log(noteId)
-    axios.delete("http://localhost:3000/api/deleteNote/"+noteId)
+    axios.delete("https://backend-crud-notes-app.onrender.com/api/deleteNote/"+noteId)
     .then((res)=>{
       console.log(res.data)
       fetchNotes()
@@ -63,7 +63,7 @@ const App = () => {
         <div className="modal">
           <form onSubmit={(e)=>{
             e.preventDefault();
-            axios.patch("http://localhost:3000/api/updateNotes/"+selectedNote._id,{
+            axios.patch("https://backend-crud-notes-app.onrender.com/api/updateNotes/"+selectedNote._id,{
               description: e.target.description.value
             })
             .then(()=>{
